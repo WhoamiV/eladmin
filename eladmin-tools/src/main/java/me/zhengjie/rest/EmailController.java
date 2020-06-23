@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
  * @author 郑杰
  * @date 2018/09/28 6:55:53
  */
-@RestController
-@RequestMapping("api/email")
-@Api(tags = "工具：邮件管理")
+//@RestController
+//@RequestMapping("api/email")
+//@Api(tags = "工具：邮件管理")
 public class EmailController {
 
     private final EmailService emailService;
@@ -44,6 +44,14 @@ public class EmailController {
     @PostMapping
     @ApiOperation("发送邮件")
     public ResponseEntity<Object> send(@Validated @RequestBody EmailVo emailVo) throws Exception {
+        emailService.send(emailVo,emailService.find());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Log("保存到草稿")
+    @PostMapping
+    @ApiOperation("发送邮件")
+    public ResponseEntity<Object> saveAsDraft(@Validated @RequestBody EmailVo emailVo) throws Exception {
         emailService.send(emailVo,emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -1,6 +1,7 @@
 package me.zhengjie.domain.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class EmailVo {
+
+    private Integer num;
 
     /** 收件人，支持多个收件人 */
     @NotEmpty
@@ -27,4 +31,10 @@ public class EmailVo {
 
     @NotBlank
     private String content;
+
+    public EmailVo(@NotEmpty List<String> tos, @NotBlank String subject, @NotBlank String content) {
+        this.tos = tos;
+        this.subject = subject;
+        this.content = content;
+    }
 }

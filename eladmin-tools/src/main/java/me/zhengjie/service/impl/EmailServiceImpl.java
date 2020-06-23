@@ -54,15 +54,25 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    public EmailConfig findByUserId(Long id) {
+        Optional<EmailConfig> emailConfig = emailRepository.findById(id);
+        return emailConfig.orElseGet(EmailConfig::new);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void send(EmailVo emailVo, EmailConfig emailConfig){
         if(emailConfig == null){
-            throw new BadRequestException("请先配置，再操作");
+            throw new BadRequestException("请先进行邮件服务器配置，再操作");
         }
         // 封装
         MailAccount account = new MailAccount();
         account.setHost(emailConfig.getHost());
-        account.setPort(Integer.parseInt(emailConfig.getPort()));
+        //无加密的端口默认25
+        account.setPort(25);
+        account.setUser(emailConfig.getUser());
+        // 非ssl方式发送
+        account.setSslEnable(false);
         account.setAuth(true);
         try {
             // 对称解密
@@ -70,9 +80,7 @@ public class EmailServiceImpl implements EmailService {
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage());
         }
-        account.setFrom(emailConfig.getUser()+"<"+emailConfig.getFromUser()+">");
-        // ssl方式发送
-        account.setSslEnable(true);
+        account.setFrom(emailConfig.getUser());
         String content = emailVo.getContent();
         // 发送
         try {

@@ -81,4 +81,9 @@ public class LimitAspect {
                 "\nend" +
                 "\nreturn c;";
     }
+
+    public static void main(String[] args) {
+        ImmutableList<Object> keys = ImmutableList.of(org.apache.commons.lang3.StringUtils.join("1","_","2","_","3"));
+        System.out.println();
+    }
 }

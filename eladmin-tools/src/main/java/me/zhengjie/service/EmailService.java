@@ -25,6 +25,12 @@ public interface EmailService {
     EmailConfig find();
 
     /**
+     * 查询配置
+     * @return EmailConfig 邮件配置
+     */
+    EmailConfig findByUserId(Long id);
+
+    /**
      * 发送邮件
      * @param emailVo 邮件发送的内容
      * @param emailConfig 邮件配置
@@ -32,4 +38,5 @@ public interface EmailService {
      */
     @Async
     void send(EmailVo emailVo, EmailConfig emailConfig) throws Exception;
+
 }

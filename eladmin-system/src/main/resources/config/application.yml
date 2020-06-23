@@ -22,10 +22,10 @@ spring:
 
   redis:
     #数据库索引
-    database: 0
-    host: 127.0.0.1
+    database: 14
+    host: ecs-2be0
     port: 6379
-    password:
+    password: ibreezee
     #连接超时时间
     timeout: 5000
 

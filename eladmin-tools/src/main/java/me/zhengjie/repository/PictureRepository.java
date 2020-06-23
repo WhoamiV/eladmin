@@ -17,6 +17,7 @@ public interface PictureRepository extends JpaRepository<Picture,Long>, JpaSpeci
      */
     Picture findByMd5Code(String code);
 
+
     /**
      * 根据连接地址查询
      * @param url /

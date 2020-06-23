@@ -20,6 +20,10 @@ public class EncryptUtils {
 
     private static IvParameterSpec iv = new IvParameterSpec(strParam.getBytes(StandardCharsets.UTF_8));
 
+    public static void main(String[] args) throws Exception{
+        System.out.println(desEncrypt("viki1230.i"));
+    }
+
     private static DESKeySpec getDesKeySpec(String source) throws Exception {
         if (source == null || source.length() == 0){
             return null;
